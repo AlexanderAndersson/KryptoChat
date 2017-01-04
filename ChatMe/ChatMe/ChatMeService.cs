@@ -16,15 +16,15 @@ namespace ChatMe
             IList<MessageData> list = new List<MessageData>();
 
 
-            var latestMessageList = from m in context.Message
+            var latestMessageList = from m in context.Messages
                                     orderby m.Timestamp
                                     select m.Message;
 
-            var latestUserList = from m in context.Message
+            var latestUserList = from m in context.Messages
                                     orderby m.Timestamp
                                     select m.Username;
 
-            var latestTimestampList = from m in context.Message
+            var latestTimestampList = from m in context.Messages
                                  orderby m.Timestamp
                                  select m.Timestamp;
 
@@ -43,7 +43,7 @@ namespace ChatMe
         {
             MessageData newMessage = new MessageData(Username, Messages, DateTime.Now);
 
-            context.Message.Add(newMessage);
+            context.Messages.Add(newMessage);
             context.SaveChanges();
 
             return true;
