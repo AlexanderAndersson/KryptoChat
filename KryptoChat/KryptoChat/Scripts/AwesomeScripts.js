@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     $.post('/Message/GetMessage/',
     function (data) {
         if (data.Result) {
@@ -24,12 +23,11 @@
 
 });
 
-
-
 $('#sendMsgBtn').click(function () {
     var row = $('#ChatShit');
     var username = row.find('input[name$=pUsername]').val();
     var message = row.find('textarea[name$=pMessage]').val();
+
     jQuery.ajax({
         type: "POST",
         url: '/Message/SendMessage/',
@@ -87,7 +85,6 @@ $('#sendMsgBtn').click(function () {
 //    }, 'json');
 //});
 
-
 $('#loadMsg').click(function () {
 
     var div = $('.chatContainer');
@@ -104,8 +101,6 @@ $('#loadMsg').click(function () {
     {
         isBottom = false;
     }
-
-    
 
     $.post('/Message/GetMessage/',
     function (data) {
@@ -145,10 +140,7 @@ $('#loadMsg').click(function () {
         }
     }, 'json');
 
-    setTimeout(function () {
-        
-        
-
+    setTimeout(function () {      
         if (isBottom)
         {
             div.scrollTop(div[0].scrollHeight);
@@ -156,9 +148,7 @@ $('#loadMsg').click(function () {
         else
         {
             div.scrollTop(div[0].scrollHeight);
-        }
-
-        
+        } 
     }, 35);
 });
 
