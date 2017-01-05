@@ -3,7 +3,14 @@
     function (data) {
         if (data.Result) {
             for (let i = 0; i < data.Result.length; i++) {
-                if (sessionStorage.Username == data.Result[i].Username) {
+                if (i == 0)
+                {
+                    var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
+                    $('#showMsg').append('\n' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '\n' + data.Result[i].Message + '\n');
+                    sessionStorage.Username = data.Result[i].Username;
+                    //sessionStorage.Time = data.Result[i].Timestamp;
+                }
+                else if (sessionStorage.Username == data.Result[i].Username) {
                     $('#showMsg').append(data.Result[i].Message + '\n');
                     //sessionStorage.Time = data.Result[i].Timestamp;
                 }
