@@ -1,12 +1,15 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #222 !important;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    color: white;
+    border: 2px solid red;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -40,4 +43,21 @@ select,*/
 
 #keyLabel {
     margin-left: 120px;
+}
+
+.nav-title {
+    color: #d51e1e !important;
+}
+
+.chatContainer {
+    border: 2px solid orange;
+    top: 50px;
+    height: 550px;
+    width: 450px;
+    display: inline-block;
+    margin-left: 50px;
+}
+
+#ChatShit {
+    display: inline-block;
 }

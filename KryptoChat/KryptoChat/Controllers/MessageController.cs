@@ -26,9 +26,9 @@ namespace KryptoChat.Controllers
 
         public ActionResult GetMessage()
         {
-            var message = client.GetLatestMessage().LastOrDefault().Message;
+            //var message = client.GetLatestMessage().LastOrDefault().Message;
             var latestMsg = client.GetLatestMessage();
-            return Json(new { Result = latestMsg.LastOrDefault() });
+            return Json(new { Result = latestMsg });
         }
     }
 }

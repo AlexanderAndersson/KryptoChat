@@ -11,7 +11,7 @@ namespace ChatMe
     public interface IChatService
     {
         [OperationContract]
-        IList<MessageData> GetLatestMessage();
+        List<MessageData> GetLatestMessage();
 
         [OperationContract]
         bool SaveMessage(string Username, string Messages);
