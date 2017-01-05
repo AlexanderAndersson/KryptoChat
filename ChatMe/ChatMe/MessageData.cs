@@ -29,5 +29,11 @@ namespace ChatMe
             Message = message;
             Timestamp = timestamp;
         }
+
+        public MessageData()
+        {
+
+        }
+
     }
 }
