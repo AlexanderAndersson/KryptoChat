@@ -49,6 +49,10 @@ select,*/
     color: #d51e1e !important;
 }
 
+.nav-title:hover {
+    color: orange !important;
+}
+
 .chatContainer {
     border: 2px solid orange;
     top: 50px;
@@ -56,6 +60,8 @@ select,*/
     width: 450px;
     display: inline-block;
     margin-left: 50px;
+    overflow-y: auto;
+    overflow-wrap: break-word;
 }
 
 #ChatShit {
