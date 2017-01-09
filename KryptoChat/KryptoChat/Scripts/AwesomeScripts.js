@@ -50,6 +50,69 @@ $('#sendMsgBtn').click(function () {
     });
 });
 
+setInterval(function () {
+    var div = $('.chatContainer');
+    var isBottom = false;
+
+    if (div.scrollTop == div[0].scrollHeight) {
+        isBottom = true;
+    }
+    else {
+        isBottom = false;
+    }
+
+    $.post('/Message/GetMessage/',
+    function (data) {
+        if (data.Result) {
+            for (let i = 0; i < data.Result.length; i++) {
+                if (sessionStorage.getItem("Time") != null) {
+                    if (data.Result[i].Timestamp > sessionStorage.Time) {
+                        if (sessionStorage.Username == data.Result[i].Username) {
+                            $('.newMessage').append(data.Result[i].Message + '<br/>');
+                        }
+                        else {
+                            var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
+                            $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
+                                '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
+                            sessionStorage.Username = data.Result[i].Username;
+                        }
+                    }
+                }
+                else {
+                    if (sessionStorage.Username == data.Result[i].Username) {
+                        $('.newMessage').append(data.Result[i].Message + '<br/>');
+                    }
+                    else {
+                        var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
+                        $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
+                            '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
+                        sessionStorage.Username = data.Result[i].Username;
+                    }
+                }
+            }
+            sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
+        }
+        else {
+            alert("Error");
+        }
+    }, 'json');
+    setTimeout(function () {
+        if (isBottom) {
+            div.scrollTop(div[0].scrollHeight);
+        }
+        else {
+            div.scrollTop(div[0].scrollHeight);
+        }
+    }, 35);
+}, 500);
+
+$(document).ready(function () {
+    $('#messageBox').keypress(function (e) {
+        if (e.keyCode == 13)
+            $('#sendMsgBtn').click();
+    });
+});
+
 //$('#loadMsg').click(function () {
 //    $.post('/Message/GetMessage/',
 //    function (data) {
@@ -143,68 +206,6 @@ $('#sendMsgBtn').click(function () {
 //    }, 35);
 //});
 
-setInterval(function () {
-    var div = $('.chatContainer');
-    var isBottom = false;
-
-    if (div.scrollTop == div[0].scrollHeight) {
-        isBottom = true;
-    }
-    else {
-        isBottom = false;
-    }
-
-    $.post('/Message/GetMessage/',
-    function (data) {
-        if (data.Result) {
-            for (let i = 0; i < data.Result.length; i++) {
-                if (sessionStorage.getItem("Time") != null) {
-                    if (data.Result[i].Timestamp > sessionStorage.Time) {
-                        if (sessionStorage.Username == data.Result[i].Username) {
-                            $('.newMessage').append(data.Result[i].Message + '<br/>');
-                        }
-                        else {
-                            var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                            $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
-                                '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
-                            sessionStorage.Username = data.Result[i].Username;
-                        }
-                    }
-                }
-                else {
-                    if (sessionStorage.Username == data.Result[i].Username) {
-                        $('.newMessage').append(data.Result[i].Message + '<br/>');
-                    }
-                    else {
-                        var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                        $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
-                            '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
-                        sessionStorage.Username = data.Result[i].Username;
-                    }
-                }
-            }
-            sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
-        }
-        else {
-            alert("Error");
-        }
-    }, 'json');
-    setTimeout(function () {
-        if (isBottom) {
-            div.scrollTop(div[0].scrollHeight);
-        }
-        else {
-            div.scrollTop(div[0].scrollHeight);
-        }
-    }, 35);
-}, 500);
-
-$(document).ready(function () {
-    $('#messageBox').keypress(function (e) {
-        if (e.keyCode == 13)
-            $('#sendMsgBtn').click();
-    });
-});
 
 //setInterval(function () {
 //    $.post('/Message/GetMessage/',
