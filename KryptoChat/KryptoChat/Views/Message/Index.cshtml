@@ -1,20 +1,23 @@
-﻿<div id="ChatShit">
+﻿<br />
+<div id="ChatShit">
     <label for="pUsername" id="usernameLabel">Username</label>
     <label for="pKey" id="keyLabel">Key</label>
     <br />
     <input type="text" name="pUsername" value="@Session["username"]" />
     <input type="text" name="pKey" value="@Session["key"]" />
     <br /><br />
-    <textarea type="text" readonly draggable="false" cols="71" rows="15" name="pMessageArea" id="showMsg"></textarea>
-    <br /><br />
+    <div class="chatContainer">
+        <div class="newMessage"></div>
+    </div>
+    <br />
+    @*<textarea type="text" readonly draggable="false" cols="71" rows="15" name="pMessageArea" id="showMsg"></textarea>
+    <br /><br />*@
     <textarea type="text" autofocus draggable="false" cols="60" rows="4" name="pMessage" id="messageBox"></textarea>
     <button id="sendMsgBtn">Send</button>
 </div>
 
-<div class="chatContainer">
-    <div class="ass"></div>
-</div>
-<br /><br />
-<button id="loadMsg">Load message</button>
+
+@*<br /><br />
+<button id="loadMsg">Load message</button>*@
 
 <script src="~/Scripts/AwesomeScripts.js"></script>
