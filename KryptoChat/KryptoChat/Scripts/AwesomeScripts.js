@@ -6,17 +6,17 @@
                 if (i == 0)
                 {
                     var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                    $('#showMsg').append('\n' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '\n' + data.Result[i].Message + '\n');
+                    $('.newMessage').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
                     sessionStorage.Username = data.Result[i].Username;
                     //sessionStorage.Time = data.Result[i].Timestamp;
                 }
                 else if (sessionStorage.Username == data.Result[i].Username) {
-                    $('#showMsg').append(data.Result[i].Message + '\n');
+                    $('.newMessage').append(data.Result[i].Message + '<br/>');
                     //sessionStorage.Time = data.Result[i].Timestamp;
                 }
                 else {
                     var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                    $('#showMsg').append('\n' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '\n' + data.Result[i].Message + '\n');
+                    $('.newMessage').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
                     sessionStorage.Username = data.Result[i].Username;
                     //sessionStorage.Time = data.Result[i].Timestamp;
                 }
@@ -24,7 +24,7 @@
             sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
         }
         else {
-            $('#showMsg').append('Failed to load message.' + '\n');
+            $('.newMessage').append('Failed to load message.' + '\n');
         }
     }, 'json');
 
@@ -116,12 +116,12 @@ $('#loadMsg').click(function () {
                 if (sessionStorage.getItem("Time") != null) {
                     if (data.Result[i].Timestamp > sessionStorage.Time) {
                         if (sessionStorage.Username == data.Result[i].Username) {
-                            $('.ass').append(data.Result[i].Message + '<br/>');
+                            $('.newMessage').append(data.Result[i].Message + '<br/>');
                             //sessionStorage.Time = data.Result[i].Timestamp;
                         }
                         else {
                             var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                            $('.ass').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
+                            $('.newMessage').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
                             sessionStorage.Username = data.Result[i].Username;
                             //sessionStorage.Time = data.Result[i].Timestamp;
                         }
@@ -129,12 +129,12 @@ $('#loadMsg').click(function () {
                 }
                 else {
                     if (sessionStorage.Username == data.Result[i].Username) {
-                        $('.ass').append(data.Result[i].Message + '<br/>');
+                        $('.newMessage').append(data.Result[i].Message + '<br/>');
                         //sessionStorage.Time = data.Result[i].Timestamp;
                     }
                     else {
                         var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                        $('.ass').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
+                        $('.newMessage').append('<br/>' + data.Result[i].Username + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '<br/>' + data.Result[i].Message + '<br/>');
                         sessionStorage.Username = data.Result[i].Username;
                         //sessionStorage.Time = data.Result[i].Timestamp;
                     }
@@ -143,7 +143,7 @@ $('#loadMsg').click(function () {
             sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
         }
         else {
-            alert("Error");
+            $('.newMessage').append('<br/> <span style="color:red;"> failed loading message(s).</span>');
         }
     }, 'json');
 
