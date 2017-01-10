@@ -9,6 +9,7 @@
   <xs:complexType name="MessageData">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Key" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />

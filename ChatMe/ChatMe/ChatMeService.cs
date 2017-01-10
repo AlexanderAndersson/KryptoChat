@@ -26,9 +26,9 @@ namespace ChatMe
             return fucku;
         }
 
-        public bool SaveMessage(string Username, string Messages)
+        public bool SaveMessage(string Username, string Messages, string key)
         {
-            MessageData newMessage = new MessageData(Username, Messages, DateTime.Now);
+            MessageData newMessage = new MessageData(Username, Messages, DateTime.Now, key);
 
             context.Messages.Add(newMessage);
             context.SaveChanges();

@@ -1,10 +1,30 @@
 ﻿$(document).ready(function () {
+    
+    ForceLoadMessages();
+
+    if (sessionStorage.getItem("Key") != null)
+    {
+        $('#keyBox').val(sessionStorage.Key);
+    }
+
+    
+
+    $('#keyBox').on("keyup", function () {
+
+        sessionStorage.Key = $('#keyBox').val();
+
+    });
+
+});
+
+function ForceLoadMessages()
+{
     $.post('/Message/GetMessage/',
+    { pKey: sessionStorage.Key },
     function (data) {
         if (data.Result) {
             for (let i = 0; i < data.Result.length; i++) {
-                if (i == 0)
-                {
+                if (i == 0) {
                     var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
                     $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " + '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
                     sessionStorage.Username = data.Result[i].Username;
@@ -27,20 +47,20 @@
             $('.newMessage').append('Failed to load message.' + '<br/>');
         }
     }, 'json');
-
-});
+}
 
 $('#sendMsgBtn').click(function () {
     var row = $('#ChatShit');
     var username = row.find('input[name$=pUsername]').val();
     var message = row.find('textarea[name$=pMessage]').val();
+    var key = row.find('input[name$=pKey]').val();
 
     jQuery.ajax({
         type: "POST",
         url: '/Message/SendMessage/',
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ pUsername: username, pMessage: message }),
+        data: JSON.stringify({ pUsername: username, pMessage: message, pKey: key }),
         success: function (data) {
             $('#messageBox').val('');
         },
@@ -62,6 +82,7 @@ setInterval(function () {
     }
 
     $.post('/Message/GetMessage/',
+    { pKey: sessionStorage.Key },
     function (data) {
         if (data.Result) {
             for (let i = 0; i < data.Result.length; i++) {

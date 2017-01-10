@@ -18,6 +18,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Messages" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -26,6 +26,9 @@ namespace KryptoChat.ChatServiceReference {
         private int IdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string KeyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MessageField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -53,6 +56,19 @@ namespace KryptoChat.ChatServiceReference {
                 if ((this.IdField.Equals(value) != true)) {
                     this.IdField = value;
                     this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Key {
+            get {
+                return this.KeyField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KeyField, value) != true)) {
+                    this.KeyField = value;
+                    this.RaisePropertyChanged("Key");
                 }
             }
         }
@@ -117,10 +133,10 @@ namespace KryptoChat.ChatServiceReference {
         System.Threading.Tasks.Task<KryptoChat.ChatServiceReference.MessageData[]> GetLatestMessageAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SaveMessage", ReplyAction="http://tempuri.org/IChatService/SaveMessageResponse")]
-        bool SaveMessage(string Username, string Messages);
+        bool SaveMessage(string Username, string Messages, string key);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SaveMessage", ReplyAction="http://tempuri.org/IChatService/SaveMessageResponse")]
-        System.Threading.Tasks.Task<bool> SaveMessageAsync(string Username, string Messages);
+        System.Threading.Tasks.Task<bool> SaveMessageAsync(string Username, string Messages, string key);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -158,12 +174,12 @@ namespace KryptoChat.ChatServiceReference {
             return base.Channel.GetLatestMessageAsync();
         }
         
-        public bool SaveMessage(string Username, string Messages) {
-            return base.Channel.SaveMessage(Username, Messages);
+        public bool SaveMessage(string Username, string Messages, string key) {
+            return base.Channel.SaveMessage(Username, Messages, key);
         }
         
-        public System.Threading.Tasks.Task<bool> SaveMessageAsync(string Username, string Messages) {
-            return base.Channel.SaveMessageAsync(Username, Messages);
+        public System.Threading.Tasks.Task<bool> SaveMessageAsync(string Username, string Messages, string key) {
+            return base.Channel.SaveMessageAsync(Username, Messages, key);
         }
     }
 }

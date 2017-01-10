@@ -14,7 +14,7 @@ namespace ChatMe
         List<MessageData> GetLatestMessage();
 
         [OperationContract]
-        bool SaveMessage(string Username, string Messages);
+        bool SaveMessage(string Username, string Messages, string key);
 
         // TODO: Add your service operations here
     }
