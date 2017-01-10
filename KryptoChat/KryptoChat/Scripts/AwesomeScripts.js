@@ -1,4 +1,4 @@
-
+﻿
 ﻿$(document).ready(function () {
     
     ForceLoadMessages();
@@ -16,13 +16,14 @@
 
     });
 	
-	$('#enterUser').on("click", function () {
+    $('#enterUser').on("click", function () {
         var row = $('.usernameDiv');
         var username = row.find('input[name$=pUsername]').val();
         sessionStorage.yourUsername = username;
         $('.userNav').append("Username: " + sessionStorage.yourUsername);
         $('.usernameDiv').hide();
         $('#ChatShit').show();
+    });
 
 });
 
@@ -98,40 +99,41 @@ setTimeout(function () {
             isBottom = false;
         }
 
-    $.post('/Message/GetMessage/',
-    { pKey: sessionStorage.Key },
-    function (data) {
-        if (data.Result) {
-            for (let i = 0; i < data.Result.length; i++) {
-                if (sessionStorage.getItem("Time") != null) {
-                    if (data.Result[i].Timestamp > sessionStorage.Time) {
-                        if (sessionStorage.Username == data.Result[i].Username) {
-                            $('.newMessage').append(data.Result[i].Message + '<br/>');
+        $.post('/Message/GetMessage/',
+            {pKey: sessionStorage.Key },
+            function (data) {
+                if (data.Result) {
+                    for (let i = 0; i < data.Result.length; i++) {
+                        if (sessionStorage.getItem("Time") != null) {
+                            if (data.Result[i].Timestamp > sessionStorage.Time) {
+                                if (sessionStorage.Username == data.Result[i].Username) {
+                                    $('.newMessage').append(data.Result[i].Message + '<br/>');
+                                }
+                                else {
+                                    var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
+                                    $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
+                                        '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
+                                    sessionStorage.Username = data.Result[i].Username;
+                                }
+                            }
                         }
                         else {
-							var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-							$('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
-								'<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
-							sessionStorage.Username = data.Result[i].Username;
-						}
-                    }
-                    else {
-                        if (sessionStorage.Username == data.Result[i].Username) {
-                            $('.newMessage').append(data.Result[i].Message + '<br/>');
-                        }
-                        else {
-                            var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
-                            $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
-                                '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
-                            sessionStorage.Username = data.Result[i].Username;
+                            if (sessionStorage.Username == data.Result[i].Username) {
+                                $('.newMessage').append(data.Result[i].Message + '<br/>');
+                            }
+                            else {
+                                var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
+                                $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " +
+                                    '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
+                                sessionStorage.Username = data.Result[i].Username;
+                            }
                         }
                     }
+                    sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
                 }
-                sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
-            }
-            else {
-                alert("Error");
-            }
+        else {
+            alert("Error");
+        }
         }, 'json');
         setTimeout(function () {
             if (isBottom) {
@@ -142,7 +144,7 @@ setTimeout(function () {
             }
         }, 35);
     }, 500);
-}, 35);
+}, 100);
 
 
 $(document).ready(function () {
@@ -151,6 +153,7 @@ $(document).ready(function () {
             $('#sendMsgBtn').click();
     });
 });
+
 
 //$('#loadMsg').click(function () {
 //    $.post('/Message/GetMessage/',
