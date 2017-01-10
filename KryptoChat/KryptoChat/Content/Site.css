@@ -9,6 +9,7 @@
     padding-left: 15px;
     padding-right: 15px;
     color: white;
+    font-family: 'Comic Sans MS';
     /*border: 2px solid red;*/
 }
 
@@ -33,7 +34,7 @@ select,*/
 }*/
 
 #sendMsgBtn {
-    height: 82px;
+    height: 87px;
     width: 75px;
     background-color: lightgray;
     border-radius: 5px;
@@ -44,7 +45,11 @@ select,*/
 }
 
 #keyLabel {
-    margin-left: 120px;
+    margin-left: 70px;
+}
+
+.navbar-inverse {
+    border-color: #d51f21 !important;
 }
 
 .nav-title {
@@ -56,14 +61,18 @@ select,*/
 }
 
 .chatContainer {
-    border: 2px solid white;
+    border: 3px solid white;
     border-radius: 5px;
     top: 50px;
     height: 550px;
-    width: 503px;
+    width: 520px;
     display: inline-block;
     overflow-y: auto;
     overflow-wrap: break-word;
+}
+
+.usernameSpan {
+    color: #c91e20;
 }
 
 #ChatShit {
@@ -73,7 +82,7 @@ select,*/
 .usernameText {
     font-weight: bold;
     font-size: medium;
-    /*border: solid 1px green;*/
+    color: orange;
 }
 
 .timeText {
@@ -84,4 +93,14 @@ select,*/
     background: #222;
     color: white;
     border-radius: 5px;
+    border: 3px solid;
+}
+
+.newMessage {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.usernameDiv {
+    margin-top: 200px;
 }

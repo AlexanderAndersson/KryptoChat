@@ -20,6 +20,7 @@ namespace KryptoChat.Controllers
         public ActionResult SendMessage(string pUsername, string pMessage)
         {
             Session["username"] = pUsername;
+            ViewBag.Username = Session["username"];
             var myMsg = client.SaveMessage(pUsername, pMessage);
             return Json( new { Result = true });
         }
