@@ -1,5 +1,9 @@
-﻿
+﻿var test = 5;
 ﻿$(document).ready(function () {
+
+    if (sessionStorage.getItem("CountMessages") == null) {
+        sessionStorage.CountMessages = 5;
+    }
     
     ForceLoadMessages();
 
@@ -37,10 +41,12 @@ else {
 function ForceLoadMessages()
 {
     $.post('/Message/GetMessage/',
-    { pKey: sessionStorage.Key },
+    { pKey: sessionStorage.Key, pMessagesToGet: sessionStorage.CountMessages },
     function (data) {
         if (data.Result) {
+            sessionStorage.CountMessages = 0;
             for (let i = 0; i < data.Result.length; i++) {
+                sessionStorage.CountMessages = Number(sessionStorage.CountMessages) + 1;
                 if (i == 0) {
                     var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
                     $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " + '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
@@ -100,10 +106,13 @@ setTimeout(function () {
         }
 
         $.post('/Message/GetMessage/',
-            {pKey: sessionStorage.Key },
+            { pKey: sessionStorage.Key, pMessagesToGet: sessionStorage.CountMessages },
             function (data) {
                 if (data.Result) {
+                    sessionStorage.CountMessages = 0;
                     for (let i = 0; i < data.Result.length; i++) {
+                        sessionStorage.CountMessages = Number(sessionStorage.CountMessages) + 1;
+                        test++;
                         if (sessionStorage.getItem("Time") != null) {
                             if (data.Result[i].Timestamp > sessionStorage.Time) {
                                 if (sessionStorage.Username == data.Result[i].Username) {
@@ -130,6 +139,8 @@ setTimeout(function () {
                         }
                     }
                     sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
+                    $('#testingGround').html(sessionStorage.CountMessages + " " + test);
+                    
                 }
         else {
             alert("Error");
