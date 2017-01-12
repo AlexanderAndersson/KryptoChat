@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using KryptoChat.ChatServiceReference;
+using KryptoChat.VillainServiceReference;
 using System.ServiceModel;
 using System.Diagnostics;
 
@@ -11,9 +12,10 @@ namespace KryptoChat.Controllers
 {
     public class MessageController : Controller
     {
-        ChatServiceClient client = new ChatServiceClient();
+        ChatServiceClient chatClient = new ChatServiceClient();
+        VillainServiceClient villainClient = new VillainServiceClient();
 
-        public ActionResult Index()
+        public ActionResult KryptoChat()
         {
             return View();
         }
@@ -21,15 +23,14 @@ namespace KryptoChat.Controllers
         public ActionResult SendMessage(string pUsername, string pMessage, string pKey)
         {
             Session["username"] = pUsername;
-            var myMsg = client.SaveMessage(pUsername, pMessage, pKey);
+            var myMsg = chatClient.SaveMessage(pUsername, pMessage, pKey);
             return Json( new { Result = true });
         }
 
         public ActionResult GetMessage(string pKey)
         {
             //var message = client.GetLatestMessage().LastOrDefault().Message;
-            var latestMsg = client.GetLatestMessage();
-
+            var latestMsg = chatClient.GetLatestMessage();
 
             foreach (var message in latestMsg)
             {
@@ -38,7 +39,6 @@ namespace KryptoChat.Controllers
                     message.Message = Shuffle(message.Message);
                 }
             }
-
 
             return Json(new { Result = latestMsg });
         }
@@ -60,6 +60,12 @@ namespace KryptoChat.Controllers
             }
 
             return new string(array);
+        }
+
+        public ActionResult GetVillain()
+        {
+            string villainName = villainClient.GetVillainName();
+            return Json(new { Result = villainName });
         }
     }
 }
