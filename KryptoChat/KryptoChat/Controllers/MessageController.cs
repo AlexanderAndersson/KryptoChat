@@ -31,6 +31,8 @@ namespace KryptoChat.Controllers
             //var message = client.GetLatestMessage().LastOrDefault().Message;
             if (string.IsNullOrWhiteSpace(pMessagesToGet))
                 pMessagesToGet = "5";
+            if (string.IsNullOrWhiteSpace(pKey))
+                pKey = "";
 
             var latestMsg = client.GetLatestMessage(pMessagesToGet);
 
