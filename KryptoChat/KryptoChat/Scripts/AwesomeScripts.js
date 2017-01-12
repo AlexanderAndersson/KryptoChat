@@ -106,6 +106,9 @@ function ForceLoadMessages()
             $('.newMessage').append('Failed to load message.' + '<br/>');
         }
     }, 'json');
+
+    let div = $('.chatContainer'); //piss som inte funkar
+    div.scrollTop(div[0].scrollHeight);
 };
 
 $('#sendMsgBtn').click(function () {

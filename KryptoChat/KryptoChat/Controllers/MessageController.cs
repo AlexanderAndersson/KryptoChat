@@ -24,7 +24,7 @@ namespace KryptoChat.Controllers
         {
             Session["username"] = pUsername;
             pKey = "burrito";
-            var myMsg = client.SaveMessage(pUsername, pMessage, pKey);
+            var myMsg = chatClient.SaveMessage(pUsername, pMessage, pKey);
 
             return Json( new { Result = true });
         }
@@ -36,7 +36,7 @@ namespace KryptoChat.Controllers
             if (string.IsNullOrWhiteSpace(pKey))
                 pKey = "";
 
-            var latestMsg = client.GetLatestMessage(pMessagesToGet);
+            var latestMsg = chatClient.GetLatestMessage(pMessagesToGet);
 
             foreach (var message in latestMsg)
             {
