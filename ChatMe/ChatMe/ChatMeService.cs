@@ -11,7 +11,7 @@ namespace ChatMe
     {
         ChatMeContext context = new ChatMeContext();
 
-        public List<MessageData> GetLatestMessage()
+        public List<MessageData> GetLatestMessage(string pMessagesToRetrieve)
         {
             List<MessageData> latestMessageList2 = (from m in context.Messages
                                                    orderby m.Timestamp
@@ -19,7 +19,11 @@ namespace ChatMe
 
             latestMessageList2.Reverse();
 
-            List<MessageData> fucku = latestMessageList2.Take(5).ToList();
+            int mS = 5;
+            int.TryParse(pMessagesToRetrieve, out mS);
+
+
+            List<MessageData> fucku = latestMessageList2.Take(mS).ToList();
 
             fucku.Reverse();
 

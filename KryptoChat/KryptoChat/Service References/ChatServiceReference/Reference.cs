@@ -127,10 +127,10 @@ namespace KryptoChat.ChatServiceReference {
     public interface IChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetLatestMessage", ReplyAction="http://tempuri.org/IChatService/GetLatestMessageResponse")]
-        KryptoChat.ChatServiceReference.MessageData[] GetLatestMessage();
+        KryptoChat.ChatServiceReference.MessageData[] GetLatestMessage(string pMessagesToRetrieve);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetLatestMessage", ReplyAction="http://tempuri.org/IChatService/GetLatestMessageResponse")]
-        System.Threading.Tasks.Task<KryptoChat.ChatServiceReference.MessageData[]> GetLatestMessageAsync();
+        System.Threading.Tasks.Task<KryptoChat.ChatServiceReference.MessageData[]> GetLatestMessageAsync(string pMessagesToRetrieve);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SaveMessage", ReplyAction="http://tempuri.org/IChatService/SaveMessageResponse")]
         bool SaveMessage(string Username, string Messages, string key);
@@ -166,12 +166,12 @@ namespace KryptoChat.ChatServiceReference {
                 base(binding, remoteAddress) {
         }
         
-        public KryptoChat.ChatServiceReference.MessageData[] GetLatestMessage() {
-            return base.Channel.GetLatestMessage();
+        public KryptoChat.ChatServiceReference.MessageData[] GetLatestMessage(string pMessagesToRetrieve) {
+            return base.Channel.GetLatestMessage(pMessagesToRetrieve);
         }
         
-        public System.Threading.Tasks.Task<KryptoChat.ChatServiceReference.MessageData[]> GetLatestMessageAsync() {
-            return base.Channel.GetLatestMessageAsync();
+        public System.Threading.Tasks.Task<KryptoChat.ChatServiceReference.MessageData[]> GetLatestMessageAsync(string pMessagesToRetrieve) {
+            return base.Channel.GetLatestMessageAsync(pMessagesToRetrieve);
         }
         
         public bool SaveMessage(string Username, string Messages, string key) {

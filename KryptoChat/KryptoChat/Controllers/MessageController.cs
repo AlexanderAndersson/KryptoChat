@@ -23,18 +23,24 @@ namespace KryptoChat.Controllers
         public ActionResult SendMessage(string pUsername, string pMessage, string pKey)
         {
             Session["username"] = pUsername;
-            var myMsg = chatClient.SaveMessage(pUsername, pMessage, pKey);
+            pKey = "burrito";
+            var myMsg = client.SaveMessage(pUsername, pMessage, pKey);
+
             return Json( new { Result = true });
         }
 
-        public ActionResult GetMessage(string pKey)
+        public ActionResult GetMessage(string pKey, string pMessagesToGet)
         {
-            //var message = client.GetLatestMessage().LastOrDefault().Message;
-            var latestMsg = chatClient.GetLatestMessage();
+            if (string.IsNullOrWhiteSpace(pMessagesToGet))
+                pMessagesToGet = "5";
+            if (string.IsNullOrWhiteSpace(pKey))
+                pKey = "";
+
+            var latestMsg = client.GetLatestMessage(pMessagesToGet);
 
             foreach (var message in latestMsg)
             {
-                if (pKey != message.Key)
+                if (pKey.ToLower() != message.Key.ToLower())
                 {
                     message.Message = Shuffle(message.Message);
                 }

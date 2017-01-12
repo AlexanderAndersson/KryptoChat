@@ -3,7 +3,9 @@
   <xs:import schemaLocation="http://localhost:8733/ChatMe/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ChatMe" />
   <xs:element name="GetLatestMessage">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pMessagesToRetrieve" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLatestMessageResponse">

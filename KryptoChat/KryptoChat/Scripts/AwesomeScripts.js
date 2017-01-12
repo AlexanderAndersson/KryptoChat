@@ -8,6 +8,10 @@ else {
 }
 
 ﻿$(document).ready(function () {
+
+    if (sessionStorage.getItem("CountMessages") == null) {
+        sessionStorage.CountMessages = 5;
+    }
     
     ForceLoadMessages();
 
@@ -21,21 +25,67 @@ else {
     $('#enterUser').on("click", function () {
         var row = $('.usernameDiv');
         var username = row.find('input[name$=pUsername]').val();
-        sessionStorage.yourUsername = username;
-        $('.userNav').append("Username: " + sessionStorage.yourUsername);
-        $('.usernameDiv').hide();
-        $('#ChatShit').show();
-        $('.villainContainer').show();
+        let responseArray = UsernameErrorCheck(username);
+        if (responseArray[0] == true)
+        {
+            sessionStorage.yourUsername = username;
+            $('.userNav').append("Username: " + sessionStorage.yourUsername);
+            $('.usernameDiv').hide();
+            $('#ChatShit').show();
+			$('.villainContainer').show();
+        }
+        else
+        {
+            row.find('input[name$=pUsername]').css('background-color', 'red');
+            $('#usernameError').html(responseArray[1]);
+        }
+        
+    });
+
+    $('input[name$=pUsername]').on('keyup', function () {
+        var row = $('.usernameDiv');
+        var username = row.find('input[name$=pUsername]').val();
+        let responseArray = UsernameErrorCheck(username);
+
+        if ($('input[name$=pUsername]').val().length <= 0)
+        {
+            row.find('input[name$=pUsername]').css('background-color', 'white');
+            $('#usernameError').html('');
+        }
+        else if (responseArray[0] == true) {
+            row.find('input[name$=pUsername]').css('background-color', 'green');
+            $('#usernameError').html('');
+        }
+        else {
+            row.find('input[name$=pUsername]').css('background-color', 'red');
+            $('#usernameError').html(responseArray[1]);
+        }
+    });
+
+    $('#messageBox').on('keyup', function () {
+
+        let message = $('#messageBox').val();
+        let responseArray = SendMsgCheckErrorTextTooLong(message)
+
+        if (responseArray[0] == true) {
+            $('#sendMsgError').html('');
+        }
+        else
+        {
+            $('#sendMsgError').html(responseArray[1]);
+        }
     });
 });
 
 function ForceLoadMessages()
 {
     $.post('/Message/GetMessage/',
-    { pKey: sessionStorage.Key },
+    { pKey: sessionStorage.Key, pMessagesToGet: sessionStorage.CountMessages },
     function (data) {
         if (data.Result) {
+            sessionStorage.CountMessages = 0;
             for (let i = 0; i < data.Result.length; i++) {
+                sessionStorage.CountMessages = Number(sessionStorage.CountMessages) + 1;
                 if (i == 0) {
                     var date = new Date(parseInt(data.Result[i].Timestamp.substr(6)));
                     $('.newMessage').append('<br/>' + '<span class="usernameText">' + data.Result[i].Username + '</span>' + " " + '<span class="timeText">' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>' + '<br/>' + data.Result[i].Message + '<br/>');
@@ -63,38 +113,55 @@ $('#sendMsgBtn').click(function () {
     var message = row.find('textarea[name$=pMessage]').val();
     var key = row.find('input[name$=pKey]').val();
 
-    jQuery.ajax({
-        type: "POST",
-        url: '/Message/SendMessage/',
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({ pUsername: sessionStorage.yourUsername, pMessage: message, pKey: key }),
-        success: function (data) {
-            $('#messageBox').val('');
-        },
-        failure: function (errMsg) {
-            alert("Error");
-        }
-    });
+    let responseArray = SendMsgErrorCheck(message);
+
+    if (responseArray[0] == true) {
+        $('#sendMsgError').html('');
+
+        jQuery.ajax({
+            type: "POST",
+            url: '/Message/SendMessage/',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ pUsername: sessionStorage.yourUsername, pMessage: message, pKey: key }),
+            success: function (data) {
+                $('#messageBox').val('');
+                sessionStorage.CountMessages = Number(sessionStorage.CountMessages) + 1;
+            },
+            failure: function (errMsg) {
+                alert("Error");
+            }
+        });
+    }
+    else {
+        $('#sendMsgError').html(responseArray[1]);
+    }
+
+    
 });
 
 setTimeout(function () {
     setInterval(function () {
         var div = $('.chatContainer');
         var isBottom = false;
+        var sum = Math.ceil(((div[0].scrollHeight - div.height() + 1) - 0.000006666666877208627)) - Math.ceil(div[0].scrollTop)
 
-        if (div.scrollTop == div[0].scrollHeight) {
+        if (sum == 0)
+        {
             isBottom = true;
         }
-        else {
+        else
+        {
             isBottom = false;
         }
 
         $.post('/Message/GetMessage/',
-            {pKey: sessionStorage.Key },
+            { pKey: sessionStorage.Key, pMessagesToGet: sessionStorage.CountMessages },
             function (data) {
                 if (data.Result) {
+                    sessionStorage.CountMessages = 0;
                     for (let i = 0; i < data.Result.length; i++) {
+                        sessionStorage.CountMessages = Number(sessionStorage.CountMessages) + 1;
                         if (sessionStorage.getItem("Time") != null) {
                             if (data.Result[i].Timestamp > sessionStorage.Time) {
                                 if (sessionStorage.Username == data.Result[i].Username) {
@@ -121,18 +188,23 @@ setTimeout(function () {
                         }
                     }
                     sessionStorage.Time = data.Result[data.Result.length - 1].Timestamp;
+                    //$('#testingGround').html(sessionStorage.CountMessages);
+                    $('#testingGround').html('scrollTop: ' + div[0].scrollTop + '<br />'
+                        + 'scrollHeight: ' + ((div[0].scrollHeight - div.height() + 1) - 0.000006666666877208627) + '<br />'
+                        + 'sum: ' + sum + '<br />'
+                        + 'isbottom: ' + isBottom + '<br />'
+                        );
                 }
         else 
             alert("Error");
         }, 'json');
         setTimeout(function () {
-            if (isBottom)
+            if (isBottom == true) {
                 div.scrollTop(div[0].scrollHeight);
-            else
-                div.scrollTop(div[0].scrollHeight);
-        }, 35);
+            }
+        }, 50);
     }, 500);
-}, 150);
+}, 50);
 
 setInterval(function () {
     $.post('/Message/GetVillain/',
@@ -151,3 +223,57 @@ $(document).ready(function () {
     });
 });
 
+function SendMsgErrorCheck(message) {
+    let isValid = true;
+    let errorMsg = "";
+
+    if ($.trim(message).length == 0) {
+        isValid = false;
+        errorMsg = "Message cannot be empty!";
+    }
+
+    if (message.length > 300) {
+        isValid = false;
+        errorMsg = "Message cannot be longer than 300 characters!";
+    }
+
+    let array = [isValid, errorMsg];
+    return array;
+};
+
+function SendMsgCheckErrorTextTooLong(message)
+{
+    let isValid = true;
+    let errorMsg = "";
+
+    if ($.trim(message).length > 300) {
+        isValid = false;
+        errorMsg = "Text too long!";
+    }
+
+    let array = [isValid, errorMsg];
+    return array;
+}
+
+function UsernameErrorCheck(username) {
+    let isValid = true;
+    let errorMsg = "";
+
+    if ($.trim(username).length == 0) {
+        isValid = false;
+        errorMsg = "Username cannot be empty!";
+    }
+
+    if (username.length > 25) {
+        isValid = false;
+        errorMsg = "Username cannot be more than 25 characters!";
+    }
+
+    if ($.trim(username).length == 1) {
+        isValid = false;
+        errorMsg = "Username must be atleast 2 characters!";
+    }
+
+    let array = [isValid, errorMsg];
+    return array;
+};

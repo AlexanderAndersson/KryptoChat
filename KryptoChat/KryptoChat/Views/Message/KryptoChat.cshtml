@@ -3,6 +3,7 @@
         <input type="text" name="pUsername" placeholder="Enter Username"/>
         <button type="button" id="enterUser">Enter</button>
     </div>
+	<p id="usernameError" style="color:red;"></p>
 </div>
 <div class="container">
     <div id="ChatShit" class="">
@@ -16,6 +17,7 @@
         <div class="">
             <textarea type="text" class="col-lg-7 col-md-7 col-sm-7 col-xs-10" draggable="false" rows="4" name="pMessage" id="messageBox"></textarea>
             <button id="sendMsgBtn" class="col-lg-1 col-md-1 col-sm-1 col-xs-2">Send</button>
+			<p id="sendMsgError" style="color:red;"></p>
         </div>
     </div>
     <div class="villainContainer hidden-xs col-lg-3 col-md-3 col-sm-3">
@@ -23,5 +25,7 @@
         <h3 id="villainName"><span class="villainSpan">Dr Mugg</span></h3>
     </div>
 </div>
+
+<div id="testingGround">TESTING</div>
 
 <script src="~/Scripts/AwesomeScripts.js"></script>
