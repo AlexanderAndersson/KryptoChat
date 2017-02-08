@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ChatMe" />
+  <xs:import schemaLocation="http://localhost:8733/ChatMe/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/ChatMe" />
   <xs:element name="GetLatestMessage">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pMessagesToRetrieve" nillable="true" type="xs:string" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetLatestMessageResponse">
@@ -18,6 +20,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="Messages" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="key" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

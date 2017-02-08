@@ -11,10 +11,10 @@ namespace ChatMe
     public interface IChatService
     {
         [OperationContract]
-        IList<MessageData> GetLatestMessage();
+        List<MessageData> GetLatestMessage(string pMessagesToRetrieve);
 
         [OperationContract]
-        bool SaveMessage(string Username, string Messages);
+        bool SaveMessage(string Username, string Messages, string key);
 
         // TODO: Add your service operations here
     }

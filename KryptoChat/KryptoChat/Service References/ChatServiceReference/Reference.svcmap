@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8733/ChatMe/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ChatMeService.wsdl" MetadataType="Wsdl" ID="0997950c-12d0-4016-8471-96f810dc7182" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?wsdl" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="e900d710-ca38-4f8d-9d7c-cba00cca2cb3" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?xsd=xsd2" />
-    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="6c29de94-a822-414f-b116-e7f30ecc7bda" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?disco" />
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="11868c12-6aeb-4f4e-ab0e-fdd9ef08f858" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?xsd=xsd1" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="fc688384-f9dc-4632-9cd7-caa0dcef3930" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/ChatMe/Service1/?xsd=xsd0" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="a1c8f9a8-1095-49cd-88af-c122fbd2047a" SourceId="1" SourceUrl="http://localhost:8733/ChatMe/?xsd=xsd1" />
+    <MetadataFile FileName="item31.xsd" MetadataType="Schema" ID="f077cd99-fed4-49da-8b4b-214df2fe9e40" SourceId="1" SourceUrl="http://localhost:8733/ChatMe/?xsd=xsd2" />
+    <MetadataFile FileName="item32.xsd" MetadataType="Schema" ID="8e683d2d-3fa7-48d9-a6cc-1ad6212351fd" SourceId="1" SourceUrl="http://localhost:8733/ChatMe/?xsd=xsd0" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="56363953-b13f-4ebd-861f-7fe3e919d785" SourceId="1" SourceUrl="http://localhost:8733/ChatMe/?disco" />
+    <MetadataFile FileName="ChatMeService1.wsdl" MetadataType="Wsdl" ID="251f083a-ae08-4757-b951-267950a2031a" SourceId="1" SourceUrl="http://localhost:8733/ChatMe/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

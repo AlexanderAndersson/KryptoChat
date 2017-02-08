@@ -12,6 +12,6 @@ namespace ChatMe
         public ChatMeContext() : base ("name=ChatMeDb")
         { }
 
-        public DbSet<MessageData> Message { get; set; }
+        public DbSet<MessageData> Messages { get; set; }
     }
 }

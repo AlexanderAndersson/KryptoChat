@@ -23,11 +23,21 @@ namespace ChatMe
         [DataMember]
         public DateTime Timestamp { get; set; }
 
-        public MessageData(string username, string message, DateTime timestamp)
+        [DataMember]
+        public string Key { get; set; }
+
+        public MessageData(string username, string message, DateTime timestamp, string key)
         {
             Username = username;
             Message = message;
             Timestamp = timestamp;
+            Key = key;
         }
+
+        public MessageData()
+        {
+
+        }
+
     }
 }

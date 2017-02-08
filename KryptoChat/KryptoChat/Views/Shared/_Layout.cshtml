@@ -18,7 +18,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("KryptoChat", "Index", "Message", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("KryptoChat", "KryptoChat", "Message", new { area = "" }, new { @class = "navbar-brand nav-title" })
+                @*@Html.ActionLink("More Chat", "OtherService", "Message", new { area = "" }, new { @class = "navbar-brand nav-title" })
+                @Html.ActionLink("Even More Chat", "MoreServices", "Message", new { area = "" }, new { @class = "navbar-brand nav-title" })*@
+                <h4 class="navbar-text userNav"></h4>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -29,7 +32,7 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />*@
         <footer>
         </footer>
     </div>

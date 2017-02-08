@@ -11,39 +11,30 @@ namespace ChatMe
     {
         ChatMeContext context = new ChatMeContext();
 
-        public IList<MessageData> GetLatestMessage()
+        public List<MessageData> GetLatestMessage(string pMessagesToRetrieve)
         {
-            IList<MessageData> list = new List<MessageData>();
+            List<MessageData> latestMessageList2 = (from m in context.Messages
+                                                   orderby m.Timestamp
+                                                   select m).ToList();
+
+            latestMessageList2.Reverse();
+
+            int mS = 5;
+            int.TryParse(pMessagesToRetrieve, out mS);
 
 
-            var latestMessageList = from m in context.Message
-                                    orderby m.Timestamp
-                                    select m.Message;
+            List<MessageData> fucku = latestMessageList2.Take(mS).ToList();
 
-            var latestUserList = from m in context.Message
-                                    orderby m.Timestamp
-                                    select m.Username;
+            fucku.Reverse();
 
-            var latestTimestampList = from m in context.Message
-                                 orderby m.Timestamp
-                                 select m.Timestamp;
-
-            string latestMsg = latestMessageList.ToList().LastOrDefault().ToString();
-            string latestUser = latestUserList.ToList().LastOrDefault().ToString();
-            DateTime latestTimestamp = latestTimestampList.ToList().LastOrDefault();
-
-            MessageData latestMessage = new MessageData(latestUser, latestMsg, latestTimestamp);
-
-            list.Add(latestMessage);
-
-            return list;
+            return fucku;
         }
 
-        public bool SaveMessage(string Username, string Messages)
+        public bool SaveMessage(string Username, string Messages, string key)
         {
-            MessageData newMessage = new MessageData(Username, Messages, DateTime.Now);
+            MessageData newMessage = new MessageData(Username, Messages, DateTime.Now, key);
 
-            context.Message.Add(newMessage);
+            context.Messages.Add(newMessage);
             context.SaveChanges();
 
             return true;

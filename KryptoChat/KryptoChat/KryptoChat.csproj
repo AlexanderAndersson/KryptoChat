@@ -103,16 +103,30 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <None Include="Service References\ChatServiceReference\item.disco" />
+    <None Include="Service References\ChatServiceReference\ChatMeService1.wsdl" />
     <None Include="Service References\ChatServiceReference\configuration91.svcinfo" />
     <None Include="Service References\ChatServiceReference\configuration.svcinfo" />
-    <None Include="Service References\ChatServiceReference\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ChatServiceReference\item1.disco" />
     <Content Include="Service References\ChatServiceReference\KryptoChat.ChatServiceReference.MessageData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\ChatServiceReference\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatServiceReference\item31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ChatServiceReference\item32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ChatServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\VillainServiceReference\item.disco" />
+    <None Include="Service References\VillainServiceReference\configuration91.svcinfo" />
+    <None Include="Service References\VillainServiceReference\configuration.svcinfo" />
+    <None Include="Service References\VillainServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -130,24 +144,29 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\VillainServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\KryptoChat.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <None Include="Service References\ChatServiceReference\ChatMeService.wsdl" />
-    <None Include="Service References\ChatServiceReference\item.xsd">
+    <None Include="Service References\VillainServiceReference\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ChatServiceReference\item1.xsd">
+    <None Include="Service References\VillainServiceReference\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\VillainServiceReference\VillainService.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ChatServiceReference\" />
+    <WCFMetadataStorage Include="Service References\VillainServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
